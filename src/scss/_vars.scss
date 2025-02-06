@@ -1,0 +1,13 @@
+:root {
+  // base
+  --font-family: "Arial", sans-serif;
+  --content-width: 1290px;
+  --container-offset: 30px;
+  --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
+
+  // colors
+  --white-color: #fff;
+  --blue-color: #3f51b5;
+  --gray-color: #ccc;
+  --light-color: #faf8f8;
+}
