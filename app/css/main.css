@@ -105,7 +105,7 @@ html {
   justify-content: center;
   margin-bottom: 30px;
   font-weight: 600;
-  font-size: 56px;
+  font-size: 72px;
   color: var(--blue-color);
 }
 .header__nav {
@@ -261,9 +261,10 @@ html {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 16px 10px;
+  padding: 16px 12px;
   width: 100%;
   max-width: 640px;
+  font-family: monospace;
   color: #721c24;
   background-color: #f8d7da;
 }
@@ -271,4 +272,19 @@ html {
   content: "⚠️";
   margin-right: 10px;
   font-size: 20px;
+}
+.main__icon-copy {
+  position: relative;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.main__icon-ok {
+  position: absolute;
+  right: 12px;
+  top: 13px;
+  display: none;
+  width: 18px;
+  height: 18px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }/*# sourceMappingURL=main.css.map */

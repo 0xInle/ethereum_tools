@@ -94,9 +94,10 @@
   &__error {
     display: flex;
     align-items: center;
-    padding: 16px 10px;
+    padding: 16px 12px;
     width: 100%;
     max-width: 640px;
+    font-family: monospace;
     color: #721c24;
     background-color: #f8d7da;
 
@@ -105,5 +106,20 @@
       margin-right: 10px;
       font-size: 20px;
     }
+  }
+
+  &__icon-copy {
+    position: relative;
+    transition: all .3s ease;
+  }
+
+  &__icon-ok {
+    position: absolute;
+    right: 12px;
+    top: 13px;
+    display: none;
+    width: 18px;
+    height: 18px;
+    transition: all .3s ease;
   }
 }
