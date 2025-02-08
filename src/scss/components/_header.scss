@@ -36,7 +36,8 @@
     outline: none;
     border-bottom: 2px solid transparent;
     padding: 12px 20px;
-    font-size: 14px;
+    font-family: monospace;
+    font-size: 13px;
     transition: all .2s ease-in-out;
 
     @media (any-hover: hover) {
