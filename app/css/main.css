@@ -255,18 +255,29 @@ html {
   height: 20px;
 }
 .main__error {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  position: absolute;
+  left: 50%;
+  top: -100px;
+  display: block;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 16px 12px;
+  padding: 14px 12px;
   width: 100%;
   max-width: 640px;
   font-family: monospace;
   color: #721c24;
   background-color: #f8d7da;
+  opacity: 0;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  -webkit-transition: top 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  transition: top 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+.main__error.show {
+  top: 0;
+  opacity: 1;
 }
 .main__error::before {
   content: "⚠️";

@@ -92,21 +92,33 @@
   }
 
   &__error {
-    display: flex;
+    position: absolute;
+    left: 50%;
+    top: -100px;
+    display: block;
     align-items: center;
-    padding: 16px 12px;
+    padding: 14px 12px;
     width: 100%;
     max-width: 640px;
     font-family: monospace;
     color: #721c24;
     background-color: #f8d7da;
-
-    &::before {
-      content: "⚠️";
-      margin-right: 10px;
-      font-size: 20px;
-    }
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: top .2s ease-in-out, opacity .2s ease-in-out;
   }
+
+  &__error.show {
+    top: 0;
+    opacity: 1;
+  }
+
+  &__error::before {
+    content: "⚠️";
+    margin-right: 10px;
+    font-size: 20px;
+  }
+
 
   &__icon-copy {
     position: relative;
@@ -123,3 +135,31 @@
     transition: all .3s ease;
   }
 }
+
+// .main__error {
+//   position: absolute;
+//   left: 50%;
+//   top: -100px; /* Сначала ошибка скрыта за пределами экрана */
+//   display: block; /* Сделаем ошибку скрытой по умолчанию через opacity */
+//   align-items: center;
+//   padding: 14px 12px;
+//   width: 100%;
+//   max-width: 640px;
+//   font-family: monospace;
+//   color: #721c24;
+//   background-color: #f8d7da;
+//   transform: translateX(-50%);
+//   opacity: 0; /* Скрываем ошибку */
+//   transition: top .2s ease-in-out, opacity .2s ease-in-out; /* Плавно меняем позицию и opacity */
+// }
+
+// .main__error.show {
+//   top: 0; /* Двигаем ошибку на место */
+//   opacity: 1; /* Показываем ошибку */
+// }
+
+// .main__error::before {
+//   content: "⚠️";
+//   margin-right: 10px;
+//   font-size: 20px;
+// }

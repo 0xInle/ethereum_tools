@@ -27,3 +27,25 @@ inpBtn.forEach(button => {
     }, 500);
   });
 });
+
+const input = document.querySelector('.main__inp');
+const errorBlock = document.querySelector('.main__error');
+
+mainBtn.addEventListener('click', function() {
+  errorBlock.classList.remove('show');
+  const address = input.value.trim();
+
+  if (!address) {
+    errorBlock.classList.add('show');
+    return;
+  }
+
+  // Имитация "запроса к API"
+  setTimeout(() => {
+    const hasResponse = Math.random() > 0.5;
+
+    if (!hasResponse) {
+      errorBlock.classList.add('show');
+    }
+  }, 200);
+});
