@@ -2,7 +2,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 244px);
+  // height: calc(100vh - 244px);
 
   &__search {
     display: flex;
@@ -10,6 +10,9 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+
+    max-width: 680px;
+    border-bottom: 2px solid var(--gray-color);
   }
 
   &__inp {
@@ -65,6 +68,7 @@
   }
 
   &__list {
+    margin-top: 36px;
     border-radius: 8px;
     padding: 20px;
     width: 100%;
@@ -118,7 +122,6 @@
     margin-right: 10px;
     font-size: 20px;
   }
-
 
   &__icon-copy {
     position: relative;

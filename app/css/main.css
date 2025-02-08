@@ -159,7 +159,6 @@ html {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  height: calc(100vh - 244px);
 }
 .main__search {
   display: -webkit-box;
@@ -176,6 +175,8 @@ html {
   -ms-flex-pack: center;
   justify-content: center;
   width: 100%;
+  max-width: 680px;
+  border-bottom: 2px solid var(--gray-color);
 }
 .main__inp {
   margin-bottom: 30px;
@@ -228,6 +229,7 @@ html {
   background: none;
 }
 .main__list {
+  margin-top: 36px;
   border-radius: 8px;
   padding: 20px;
   width: 100%;
