@@ -65,21 +65,24 @@ exampleText.addEventListener('click', function () {
   inputField.value = fullAddress;
 });
 
-// Лоадер + оповещение об ошибке
+// Находим элементы
 const submitButton = document.querySelector('.main__btn');
+const clearButton = document.querySelector('.main__btn-x');
 const errorButton = document.querySelector('.main__btn-error');
-const searchBox = document.querySelector('.main__search-box'); // Блок поиска
+const searchBox = document.querySelector('.main__search-box');
 
-// Повторный вызов
+// Флаг, чтобы предотвратить повторный вызов
 let isLoading = false;
 
-// Функция запуска лоадера и проверки адреса
+// Функция для запуска лоадера и проверки адреса
 function checkAddress() {
-  if (isLoading) return;
+  if (isLoading) return; // Если уже идет проверка, выходим
   isLoading = true;
-  errorButton.style.display = 'none'; // Скрываем ошибку перед проверкой
-  searchBox.classList.remove('error'); // Убираем красный стиль перед проверкой
-  inputField.classList.remove('error'); // Убираем красный текст в инпуте
+
+  // Скрываем ошибку и удаляем красные стили перед проверкой
+  errorButton.style.display = 'none';
+  searchBox.classList.remove('error');
+  inputField.classList.remove('error');
 
   // Заменяем крестик на лоадер
   clearButton.innerHTML = `<svg class="loader" viewBox="0 0 50 50">
@@ -95,24 +98,24 @@ function checkAddress() {
     if (!isValid) {
       console.error("❌ Ошибка: адрес не валиден");
       errorButton.style.display = 'block'; // Показываем ошибку
-      searchBox.classList.add('error'); // Добавляем класс для красного бордера
-      inputField.classList.add('error'); // Добавляем класс для красного текста в инпуте
+      searchBox.classList.add('error'); // Красный бордер
+      inputField.classList.add('error'); // Красный текст
     } else {
       console.log("✅ Адрес валиден");
       errorButton.style.display = 'none'; // Прячем ошибку
-      searchBox.classList.remove('error'); // Убираем красный стиль
-      inputField.classList.remove('error'); // Убираем красный текст в инпуте
+      searchBox.classList.remove('error'); // Убираем красный бордер
+      inputField.classList.remove('error'); // Убираем красный текст
     }
     isLoading = false; // Сбрасываем флаг после завершения проверки
   }, 1000);
 }
 
-// Очищение инпута
-const clearButton = document.querySelector('.main__btn-x');
+// Очищение инпута при нажатии на кнопку крестика
 clearButton.addEventListener('click', () => {
-  inputField.value = '';
-  searchBox.classList.remove('error'); // Убираем ошибку при очистке
+  inputField.value = ''; // Очищаем поле
+  searchBox.classList.remove('error'); // Убираем красный бордер
   inputField.classList.remove('error'); // Убираем красный текст
+  errorButton.style.display = 'none'; // Скрываем иконку ошибки
 });
 
 // Обработка нажатия на кнопку "Get Info"
