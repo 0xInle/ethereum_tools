@@ -8,9 +8,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitButton = document.querySelector('.main__btn');
   const inputFields = document.querySelectorAll('.main__inp-content');
 
+  // // Функция смены иконок
+  document.querySelectorAll('.main__inp-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const copyIcon = button.querySelector('.main__icon-copy');
+      const checkIcon = button.querySelector('.copy-check');
+
+      // Показываем иконку галочки, скрываем иконку копии
+      copyIcon.style.display = 'none';
+      checkIcon.style.display = 'inline';
+
+      // Через 3 секунды возвращаем всё обратно
+      setTimeout(() => {
+        copyIcon.style.display = 'inline';
+        checkIcon.style.display = 'none';
+      }, 1000);
+    });
+  });
+
   // Кнопки копирования
   const copyButtons = document.querySelectorAll('.main__inp-btn');
-  const copyCheckIcon = copyButtons.length > 0 ? copyButtons[0].querySelector('.copy-check') : null;
 
   // Добавляем обработчик для кнопок копирования
   copyButtons.forEach(button => {
@@ -20,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (textToCopy.trim() !== '') {
         navigator.clipboard.writeText(textToCopy).then(() => {
-          console.log("✅ Текст скопирован в буфер обмена!");
+          console.log("Текст скопирован в буфер обмена!");
         }).catch(err => {
           console.error('Ошибка при копировании текста: ', err);
         });
@@ -109,6 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (errorMessage) {
       errorMessage.style.display = 'none'; // Скрыть ошибку при клике на крестик
     }
+
+    // Устанавливаем фокус обратно на инпут
+    inputField.focus();
   });
 
   // Клик по example вставляет примерный адрес в input и переносит фокус на input
@@ -117,6 +137,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (activeButton) {
       inputField.value = activeButton.getAttribute('data-example');
       inputField.focus();
+    }
+  });
+
+  // Добавляем обработчик для клавиши Enter
+  exampleText.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') { // Проверяем, была ли нажата клавиша Enter
+      const activeButton = document.querySelector('.header__btn.active');
+      if (activeButton) {
+        inputField.value = activeButton.getAttribute('data-example');
+        inputField.focus();
+      }
     }
   });
 
@@ -164,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
       hideLoader();
 
       if (isValid) {
-        console.log("✅ Адрес валиден");
+        console.log("Адрес валиден");
         if (errorMessage) errorMessage.style.display = 'none';
 
         const apiResponse = {
@@ -183,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>`;
       } else {
-        console.log("❌ Ошибка: адрес не валиден");
+        console.log("Ошибка: адрес не валиден");
         searchBox.classList.add('error');
         alertIcon.style.display = 'block';
 

@@ -15,6 +15,7 @@
 
   &__search-box {
     position: relative;
+    align-items: center;
     margin-bottom: 3px;
     border: 2px solid var(--blue-color);
     border-radius: 4px;
@@ -31,18 +32,29 @@
     &:focus-within {
       border: 2px solid var(--blue-color);
     }
+
+    @media (width <=390px) {
+      padding: 10px;
+    }
   }
 
   &__inp {
+    overflow: hidden;
     margin-right: 20px;
     outline: none;
     border: none;
     width: 100%;
     max-width: 680px;
     font-family: monospace;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     &.error {
       color: var(--error-color);
+    }
+
+    @media (width <=390px) {
+      overflow: hidden;
     }
   }
 
@@ -50,9 +62,20 @@
     outline: none;
     width: 20px;
     height: 20px;
+    transition: all .3 ease;
+
+    @media (any-hover: hover) {
+      &:hover svg {
+        stroke: var(--blue-color);
+      }
+    }
 
     &:focus svg {
       stroke: var(--blue-color);
+    }
+
+    &:active svg {
+      stroke: #000;
     }
   }
 
@@ -84,6 +107,14 @@
         background-color: #007bffd0;
       }
     }
+
+    &:focus {
+      background-color: #007bffd0;
+    }
+
+    &:active {
+      background-color: var(--blue-color);
+    }
   }
 
   &__content {
@@ -102,12 +133,20 @@
   }
 
   &__inp-content {
+    overflow: hidden;
+    margin-right: 20px;
     outline: none;
     border: none;
     width: 100%;
     font-family: monospace;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     color: #007bff;
     background: none;
+
+    @media (width <=390px) {
+      margin-right: 10px;
+    }
   }
 
   &__list {
@@ -165,10 +204,24 @@
 
   &__example {
     margin-left: auto;
+    outline: none;
     font-size: 12px;
     text-decoration: underline;
     color: rgb(92, 91, 91);
+    transition: all .3s ease;
     cursor: pointer;
+
+    &:hover {
+      color: var(--blue-color);
+    }
+
+    &:focus {
+      color: var(--blue-color);
+    }
+
+    &:active {
+      color: rgb(92, 91, 91);
+    }
   }
 
   &__icon-copy {
