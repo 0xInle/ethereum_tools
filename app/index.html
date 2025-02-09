@@ -28,17 +28,17 @@
         </button>
       </li>
       <li class="header__item">
-        <button class="header__btn btn-reset" data-placeholder="Enter Private Key" data-example="5Jmn3pGxD4Yxzk6hzgAqMjwnc1c4Xn4nZAk1zhrYTnT9E9yTrw9">
+        <button class="header__btn btn-reset" data-placeholder="Enter Private Key" data-example="0xa665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3">
           PrivKey → Address
         </button>
       </li>
       <li class="header__item">
-        <button class="header__btn btn-reset" data-placeholder="Enter Public Key" data-example="04a34f5673c9e98d2f8b5a4c7b6c8d9e0f1a2b3c4d5e6f70819283746556473829b8f7e6d5c4b3a2f1e0d9c8b7a6b5a4f3e2d1c0b9a8b7c6d5e4f3g2h1">
+        <button class="header__btn btn-reset" data-placeholder="Enter Public Key" data-example="02bbc490888aefe97391b084d9a60b7322e4372ca4eee810eacc157c49b0b3e703">
           PubKey → Address
         </button>
       </li>
       <li class="header__item">
-        <button class="header__btn btn-reset" data-placeholder="Enter Transaction Hash" data-example="0x5acac04d27b2185b9ef08fdaafedcba215a73f3b66d6b77ac9ff8b5192fc7c8b7">
+        <button class="header__btn btn-reset" data-placeholder="Enter Transaction Hash" data-example="0xf0b1a4a35f7640d3cebd29b2813b3dff5b686e498d7060846ad4564dae6cd675">
           Tx Hash → RSZ
         </button>
       </li>
@@ -52,16 +52,29 @@
     <div class="main__search-box flex">
       <input type="text" class="main__inp" placeholder="Enter Ethereum address">
       <button class="main__btn-x btn-reset">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        <svg class="main__svg-x" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
-      <button class="main__btn-error btn-reset">
-        ⚠
-      </button>
+      <svg class="main__svg-allert" version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt" height="512.000000pt"
+        viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+          <path d="M2320 4999 c-972 -108 -1764 -737 -2079 -1651 -91 -267 -126 -481
+            -126 -788 0 -243 13 -358 62 -565 267 -1133 1312 -1929 2473 -1882 795 33
+            1505 429 1945 1087 558 834 552 1921 -17 2747 -305 443 -749 775 -1263 944
+            -94 31 -289 77 -405 94 -126 19 -470 28 -590 14z m343 -785 c63 -21 130 -83
+            164 -152 l28 -57 0 -945 0 -945 -24 -49 c-31 -63 -84 -116 -147 -146 -38 -19
+            -66 -24 -124 -25 -122 0 -212 55 -272 168 l-23 42 -3 939 c-3 1079 -9 1001 87
+            1097 35 35 73 62 101 72 59 20 155 21 213 1z m51 -2617 c77 -35 140 -98 179
+            -176 30 -61 32 -73 32 -166 0 -85 -4 -107 -24 -148 -37 -75 -104 -142 -179
+            -179 -60 -30 -75 -33 -157 -33 -82 0 -97 3 -157 33 -134 66 -210 186 -210 332
+            0 133 67 251 180 317 101 59 233 67 336 20z" fill="rgb(242, 6, 6)" />
+        </g>
+      </svg>
     </div>
     <span class="main__example">
-      ex: <span class="main__example-text">0×1406854d149e081ac09cb4ca560da463f3123059</span>
+      example
     </span>
     <button class="main__btn btn-reset">
       Get Info

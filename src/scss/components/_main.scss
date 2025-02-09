@@ -17,17 +17,24 @@
     position: relative;
     margin-bottom: 3px;
     border: 2px solid var(--blue-color);
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 20px;
     width: 100%;
+    min-height: 64px;
     max-width: 680px;
+    transition: all .2s ease;
 
     &.error {
-      border: 2px solid var(--error-color); /* Красный бордер 2px */
+      border: 2px solid var(--error-color);
+    }
+
+    &:focus-within {
+      border: 2px solid var(--blue-color); /* Цвет бордера при фокусе на инпуте */
     }
   }
 
   &__inp {
+    margin-right: 20px;
     outline: none;
     border: none;
     width: 100%;
@@ -35,14 +42,25 @@
     font-family: monospace;
 
     &.error {
-      color: var(--error-color); /* Красный цвет текста в инпуте */
+      color: var(--error-color);
     }
-
   }
 
   &__btn-x {
+    outline: none;
     width: 20px;
     height: 20px;
+
+    &:focus svg {
+      stroke: var(--blue-color);
+    }
+  }
+
+  &__svg-allert {
+    display: none;
+    width: 17px;
+    height: 18px;
+    fill: var(--error-color);
   }
 
   &__btn-error {
@@ -54,9 +72,10 @@
 
   &__example {
     display: flex;
-    align-self: flex-start;
+    align-self: flex-end;
     margin-bottom: 30px;
     font-size: 12px;
+    text-decoration: underline;
     color: rgb(92, 91, 91);
     cursor: pointer;
   }
@@ -103,9 +122,8 @@
 
   &__list {
     margin-top: 36px;
-    border: 1px solid var(--gray-color);
-    border-radius: 8px;
-    padding: 20px;
+    border-radius: 4px;
+    padding: 20px 0;
     width: 100%;
   }
 
@@ -187,16 +205,16 @@
   }
 }
 
-.loader {
-  width: 20px;
-  height: 20px;
-  animation: spin 1s linear infinite;
-}
+// .loader {
+//   width: 20px;
+//   height: 20px;
+//   animation: spin 1s linear infinite;
+// }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+// @keyframes spin {
+//   0% { transform: rotate(0deg); }
+//   100% { transform: rotate(360deg); }
+// }
 
 // .main__search-box.error {
 //   border: 2px solid var(--error-color); /* Красный бордер 2px */
@@ -205,3 +223,17 @@
 // .main__inp.error {
 //   color: var(--error-color); /* Красный цвет текста в инпуте */
 // }
+
+
+.loader {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.main__btn-error.show {
+  display: block;
+}

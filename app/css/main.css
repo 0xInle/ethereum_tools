@@ -129,7 +129,7 @@ html {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 0 20px 1px;
+  padding: 0 20px;
   width: 100%;
   max-width: 720px;
 }
@@ -137,7 +137,7 @@ html {
   content: "";
   position: absolute;
   left: 0;
-  bottom: 1px;
+  bottom: 0;
   z-index: -1;
   border-bottom: 1px solid var(--gray-color);
   width: 100%;
@@ -145,7 +145,7 @@ html {
 .header__btn {
   outline: none;
   border-bottom: 1px solid transparent;
-  padding: 12px 20px;
+  padding: 12px 20px 11px;
   font-family: monospace;
   font-size: 13px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -162,6 +162,12 @@ html {
     color: var(--blue-color);
     background-color: var(--light-color);
   }
+}
+
+.header__btn.active {
+  border-color: var(--blue-color);
+  color: var(--blue-color);
+  background-color: var(--light-color);
 }
 
 .main {
@@ -198,15 +204,22 @@ html {
   position: relative;
   margin-bottom: 3px;
   border: 2px solid var(--blue-color);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 20px;
   width: 100%;
+  min-height: 64px;
   max-width: 680px;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 .main__search-box.error {
-  border: 2px solid var(--error-color); /* Красный бордер 2px */
+  border: 2px solid var(--error-color);
+}
+.main__search-box:focus-within {
+  border: 2px solid var(--blue-color); /* Цвет бордера при фокусе на инпуте */
 }
 .main__inp {
+  margin-right: 20px;
   outline: none;
   border: none;
   width: 100%;
@@ -214,11 +227,21 @@ html {
   font-family: monospace;
 }
 .main__inp.error {
-  color: var(--error-color); /* Красный цвет текста в инпуте */
+  color: var(--error-color);
 }
 .main__btn-x {
+  outline: none;
   width: 20px;
   height: 20px;
+}
+.main__btn-x:focus svg {
+  stroke: var(--blue-color);
+}
+.main__svg-allert {
+  display: none;
+  width: 17px;
+  height: 18px;
+  fill: var(--error-color);
 }
 .main__btn-error {
   position: absolute;
@@ -230,10 +253,11 @@ html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-item-align: start;
-  align-self: flex-start;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
   margin-bottom: 30px;
   font-size: 12px;
+  text-decoration: underline;
   color: rgb(92, 91, 91);
   cursor: pointer;
 }
@@ -278,9 +302,8 @@ html {
 }
 .main__list {
   margin-top: 36px;
-  border: 1px solid var(--gray-color);
-  border-radius: 8px;
-  padding: 20px;
+  border-radius: 4px;
+  padding: 20px 0;
   width: 100%;
 }
 .main__item {
@@ -363,8 +386,6 @@ html {
 }
 
 .loader {
-  width: 20px;
-  height: 20px;
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
 }
@@ -389,4 +410,7 @@ html {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+.main__btn-error.show {
+  display: block;
 }/*# sourceMappingURL=main.css.map */

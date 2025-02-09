@@ -17,7 +17,7 @@
   &__list {
     position: relative;
     justify-content: space-between;
-    padding: 0 20px 1px;
+    padding: 0 20px;
     width: 100%;
     max-width: 720px;
 
@@ -25,7 +25,7 @@
       content: '';
       position: absolute;
       left: 0;
-      bottom: 1px;
+      bottom: 0;
       z-index: -1;
       border-bottom: 1px solid var(--gray-color);
       width: 100%;
@@ -35,7 +35,7 @@
   &__btn {
     outline: none;
     border-bottom: 1px solid transparent;
-    padding: 12px 20px;
+    padding: 12px 20px 11px;
     font-family: monospace;
     font-size: 13px;
     transition: all .2s ease-in-out;
@@ -54,4 +54,10 @@
       }
     }
   }
+}
+
+.header__btn.active {
+  border-color: var(--blue-color);
+  color: var(--blue-color);
+  background-color: var(--light-color);
 }
