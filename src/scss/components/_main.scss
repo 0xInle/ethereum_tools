@@ -29,7 +29,7 @@
     }
 
     &:focus-within {
-      border: 2px solid var(--blue-color); /* Цвет бордера при фокусе на инпуте */
+      border: 2px solid var(--blue-color);
     }
   }
 
@@ -68,16 +68,6 @@
     right: -30px;
     top: 22px;
     display: none;
-  }
-
-  &__example {
-    display: flex;
-    align-self: flex-end;
-    margin-bottom: 30px;
-    font-size: 12px;
-    text-decoration: underline;
-    color: rgb(92, 91, 91);
-    cursor: pointer;
   }
 
   &__btn {
@@ -161,32 +151,24 @@
     }
   }
 
-  &__error {
-    position: absolute;
-    left: 50%;
-    top: -100px;
-    display: block;
-    align-items: center;
-    padding: 14px 12px;
+  &__descr {
+    justify-content: space-between;
+    margin-bottom: 30px;
     width: 100%;
-    max-width: 640px;
-    font-family: monospace;
-    color: #721c24;
-    background-color: #f8d7da;
-    opacity: 0;
-    transform: translateX(-50%);
-    transition: top .2s ease-in-out, opacity .2s ease-in-out;
   }
 
-  &__error.show {
-    top: 0;
-    opacity: 1;
+  &__error {
+    display: none;
+    font-size: 12px;
+    color: var(--error-color);
   }
 
-  &__error::before {
-    content: "⚠️";
-    margin-right: 10px;
-    font-size: 20px;
+  &__example {
+    margin-left: auto;
+    font-size: 12px;
+    text-decoration: underline;
+    color: rgb(92, 91, 91);
+    cursor: pointer;
   }
 
   &__icon-copy {
@@ -204,26 +186,6 @@
     transition: all .3s ease;
   }
 }
-
-// .loader {
-//   width: 20px;
-//   height: 20px;
-//   animation: spin 1s linear infinite;
-// }
-
-// @keyframes spin {
-//   0% { transform: rotate(0deg); }
-//   100% { transform: rotate(360deg); }
-// }
-
-// .main__search-box.error {
-//   border: 2px solid var(--error-color); /* Красный бордер 2px */
-// }
-
-// .main__inp.error {
-//   color: var(--error-color); /* Красный цвет текста в инпуте */
-// }
-
 
 .loader {
   animation: spin 1s linear infinite;

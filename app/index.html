@@ -4,11 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="theme-color" content="#111111">
   <title>Ethereum Tools</title>
-  <link rel="preload" href="fonts/InterRegular.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- <link rel="preload" href="fonts/InterRegular.woff2" as="font" type="font/woff2" crossorigin> -->
   <link rel="stylesheet" href="css/vendor.css">
   <link rel="stylesheet" href="css/main.css">
   <script defer src="js/main.js"></script>
@@ -73,9 +72,12 @@
         </g>
       </svg>
     </div>
-    <span class="main__example">
-      example
-    </span>
+    <div class="main__descr flex">
+      <span class="main__error"></span>
+      <span class="main__example">
+        example
+      </span>
+    </div>
     <button class="main__btn btn-reset">
       Get Info
     </button>
@@ -97,6 +99,9 @@
                 d="m3.5 11.5v1c0 1.1045695.8954305 2 2 2h7c1.1045695 0 2-.8954305 2-2v-7c0-1.1045695-.8954305-2-2-2h-1" />
             </g>
           </svg>
+          <svg class="copy-check" height="21" width="21" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <path d="M3 9l3 3 9-9" stroke="green" stroke-width="2" fill="none" />
+          </svg>
         </button>
       </li>
       <li class="main__item flex">
@@ -113,6 +118,9 @@
               <path
                 d="m3.5 11.5v1c0 1.1045695.8954305 2 2 2h7c1.1045695 0 2-.8954305 2-2v-7c0-1.1045695-.8954305-2-2-2h-1" />
             </g>
+          </svg>
+          <svg class="copy-check" height="21" width="21" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <path d="M3 9l3 3 9-9" stroke="green" stroke-width="2" fill="none" />
           </svg>
         </button>
       </li>
@@ -131,12 +139,12 @@
                 d="m3.5 11.5v1c0 1.1045695.8954305 2 2 2h7c1.1045695 0 2-.8954305 2-2v-7c0-1.1045695-.8954305-2-2-2h-1" />
             </g>
           </svg>
+          <svg class="copy-check" height="21" width="21" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <path d="M3 9l3 3 9-9" stroke="green" stroke-width="2" fill="none" />
+          </svg>
         </button>
       </li>
     </ul>
-  </div>
-  <div class="main__error">
-    Invalid address length or characters
   </div>
 </section>
 
