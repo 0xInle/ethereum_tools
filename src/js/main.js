@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   let isLoading = false;
-  let alertTimeout;
 
   // Проверка на наличие всех необходимых элементов
   if (!inputField || !clearButton || !buttons.length || !exampleText || !searchBox) {
@@ -113,9 +112,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Если нажата кнопка с id == "4"
         if (button.id === "4") {
           // Меняем текст в span-элементах на R, S, Z
-          spanElements[0].textContent = 'R';  // Address -> R
-          spanElements[1].textContent = 'S';  // Compressed -> S
-          spanElements[2].textContent = 'Z';  // Uncompressed -> Z
+          spanElements[0].textContent = 'R:';  // Address -> R
+          spanElements[1].textContent = 'S:';  // Compressed -> S
+          spanElements[2].textContent = 'Z:';  // Uncompressed -> Z
         } else {
           // Если нажата другая кнопка, восстанавливаем исходные значения
           spanElements[0].textContent = 'Address:';
@@ -177,68 +176,41 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Клик по example вставляет примерный адрес в input и переносит фокус на input
-  exampleText.addEventListener('click', () => {
+  function insertExampleText(event) {
+    // Если это keydown, но не Enter — ничего не делаем
+    if (event.type === 'keydown' && event.key !== 'Enter') return;
+
     const activeButton = document.querySelector('.header__btn.active');
-    if (activeButton) {
-      // Убираем ошибку перед вставкой текста
-      searchBox.classList.remove('error');
-      const errorMessage = document.querySelector('.main__error');
-      if (errorMessage) {
-        errorMessage.style.display = 'none';
-      }
+    if (!activeButton) return;
 
-      // Получаем данные от API
-      // fetch('/api/getExampleData')  // Заменить на реальный URL API
-      //   .then(response => response.json())  // Предполагаем, что API возвращает JSON
-      //   .then(data => {
-      //     let exampleText = '';
+    // Убираем ошибку перед вставкой текста
+    searchBox.classList.remove('error');
+    const errorMessage = document.querySelector('.main__error');
+    if (errorMessage) errorMessage.style.display = 'none';
 
-      //     // Вставляем новый адрес в зависимости от id активной кнопки
-      //     switch (activeButton.id) {
-      //       case '1':
-      //         exampleText = data.address;  // Пример для Address
-      //         break;
-      //       case '2':
-      //         exampleText = data.privateKey;  // Пример для Private Key
-      //         break;
-      //       case '3':
-      //         exampleText = data.publicKey;  // Пример для Public Key
-      //         break;
-      //       case '4':
-      //         exampleText = data.transactionHash;  // Пример для Transaction Hash
-      //         break;
-      //       default:
-      //         exampleText = '';  // По умолчанию, если id не совпадает
-      //     }
+    // Примеры данных
+    const examples = {
+      '1': '0x1406854d149e081ac09cb4ca560da463f3123059',  // Address
+      '2': '0xa665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',  // Private Key
+      '3': '02bbc490888aefe97391b084d9a60b7322e4372ca4eee810eacc157c49b0b3e703',  // Public Key
+      '4': '0xf0b1a4a35f7640d3cebd29b2813b3dff5b686e498d7060846ad4564dae6cd675'  // Transaction Hash
+    };
 
-      //     // Вставляем новый адрес
-      //     inputField.value = exampleText;
-      //     inputField.focus();
+    // Вставляем примерный адрес
+    inputField.value = examples[activeButton.id] || '';
+    inputField.focus();
 
-      //     // Проверяем, если поле пустое, то добавляем ошибку
-      //     if (inputField.value.trim() === '') {
-      //       searchBox.classList.add('error');
-      //       if (errorMessage) {
-      //         errorMessage.style.display = 'block';
-      //       }
-      //     }
-      //   })
-      //   .catch(error => {
-      //     console.error('Ошибка при запросе данных API:', error);
-      //   });
+    // Если поле пустое, добавляем ошибку
+    if (inputField.value.trim() === '') {
+      searchBox.classList.add('error');
+      if (errorMessage) errorMessage.style.display = 'block';
     }
-  });
+    // inputField.focus(); // Оставляем фокус в инпуте
+  }
 
-  // Добавляем обработчик для клавиши Enter
-  exampleText.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') { // Проверяем, была ли нажата клавиша Enter
-      const activeButton = document.querySelector('.header__btn.active');
-      if (activeButton) {
-        inputField.value = activeButton.getAttribute('data-example');
-        inputField.focus();
-      }
-    }
-  });
+  // Добавляем обработчики на клик и Enter
+  exampleText.addEventListener('click', insertExampleText);
+  exampleText.addEventListener('keydown', insertExampleText);
 
   // Сохраняем выделение кнопки при взаимодействии с инпутом
   inputField.addEventListener('focus', () => {
@@ -345,8 +317,11 @@ document.addEventListener('DOMContentLoaded', () => {
       checkAddress();
     }
 
-    // Переносим фокус на поле ввода
-    inputField.focus();
+    inputField.blur();// Сворачиваем клавиатуру
+    // Добавляем задержку перед установкой фокуса
+    setTimeout(() => {
+      inputField.focus();
+    }, 0); // 0 миллисекунд - это дает браузеру время обновить состояние перед фокусом
   });
 
   // Обработчик для нажатия Enter
@@ -362,11 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
         checkAddress();
       }
     }
-  });
-
-  // Закрытие клавиатуры на мобильном устройстве
-  submitButton.addEventListener('click', () => {
-    inputField.blur();
+    inputField.focus();
   });
 });
 
