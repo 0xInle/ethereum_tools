@@ -303,14 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (errorMessage) {
         errorMessage.style.display = 'none'; // Скрываем сообщение об ошибке
       }
-    } else {
-      // Если поле пустое, показываем ошибку
-      searchBox.classList.add('error');
-      const errorMessage = document.querySelector('.main__error');
-      if (errorMessage) {
-        errorMessage.textContent = "The address cannot be empty.";
-        errorMessage.style.display = 'block'; // Показываем сообщение об ошибке
-      }
     }
   });
 
