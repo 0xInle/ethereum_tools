@@ -212,6 +212,7 @@
     }
 
     &:focus {
+      outline: none;
       color: var(--blue-color);
     }
 

@@ -434,6 +434,7 @@ html {
   color: var(--blue-color);
 }
 .main__example:focus {
+  outline: none;
   color: var(--blue-color);
 }
 .main__example:active {

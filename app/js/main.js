@@ -352,6 +352,21 @@ function fillFieldsWithValidResponse(response) {
     inputField.setAttribute('readonly', true);
   });
 }
+
+// Закрытие клавиатуры при нажатии на кнопку
+const submitButton = document.querySelector('.main__btn');
+const inputField = document.querySelector('.main__inp');
+submitButton.addEventListener('click', () => {
+  inputField.blur();
+});
+
+// Закрытие клавиатуры при нажатии Enter
+inputField.addEventListener('keydown', event => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    inputField.blur();
+  }
+});
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
