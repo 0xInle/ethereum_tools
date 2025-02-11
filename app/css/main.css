@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --font-family: "Arial", sans-serif;
   --content-width: 1290px;
@@ -254,14 +255,11 @@ html {
   width: 100%;
   min-height: 64px;
   max-width: 680px;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 .main__search-box.error {
   border: 2px solid var(--error-color);
-}
-.main__search-box:focus-within {
-  border: 2px solid var(--blue-color);
 }
 @media (width <= 390px) {
   .main__search-box {
@@ -485,4 +483,14 @@ html {
 }
 .main__btn-error.show {
   display: block;
+}
+
+/* Когда поле в фокусе и ошибка */
+.main__search-box.error .main__inp:focus {
+  border-color: var(--error-color); /* Устанавливаем красный бордер даже при фокусе */
+}
+
+/* Когда поле просто в фокусе, без ошибки */
+.main__search-box .main__inp:focus {
+  border-color: var(--blue-color); /* Синий бордер при фокусе */
 }/*# sourceMappingURL=main.css.map */

@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const exampleText = document.querySelector('.main__example');
   const buttons = document.querySelectorAll('.header__btn');
   const searchBox = document.querySelector('.main__search-box');
-  const alertIcon = document.querySelector('.main__svg-allert');
   const submitButton = document.querySelector('.main__btn');
   const inputFields = document.querySelectorAll('.main__inp-content');
 
@@ -70,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let alertTimeout;
 
   // Проверка на наличие всех необходимых элементов
-  if (!inputField || !clearButton || !buttons.length || !exampleText || !searchBox || !alertIcon) {
+  if (!inputField || !clearButton || !buttons.length || !exampleText || !searchBox) {
     console.error('Ошибка: Один из элементов не найден.');
     return;
   }
@@ -85,22 +84,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Функция для установки активной кнопки и обновления плейсхолдера
   function setActiveButton(clickedButton) {
+    // Снимаем активность с всех кнопок
     buttons.forEach(button => button.classList.remove('active'));
     clickedButton.classList.add('active');
+
+    // Обновляем плейсхолдер
     const placeholderText = clickedButton.getAttribute('data-placeholder');
     inputField.placeholder = placeholderText;
+
+    // Очищаем активное поле ввода и сбрасываем активную кнопку
     inputField.value = '';
     inputField.dataset.activeButton = clickedButton.getAttribute('data-placeholder');
+
+    // Очищаем все другие инпуты, которые могут быть заполнены
+    inputFields.forEach(input => input.value = '');
+
+    // Очищаем все тексты в блоках (если они есть)
+    const spanElements = document.querySelectorAll('.main__span');
+    spanElements.forEach(span => span.textContent = ''); // Очистка названий полей
+
+    // Убираем ошибку, если поле пустое
     if (inputField.value.trim() === '') {
       searchBox.classList.remove('error');
     }
-    alertIcon.style.display = 'none';
+
+    // Показать крестик после очищения
     clearButton.style.display = 'block';
     clearButton.innerHTML = `<svg class="main__svg-x" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
     </svg>`;
-    if (alertTimeout) {
-      clearTimeout(alertTimeout);
+
+    // Очищаем сообщение об ошибке, если оно было
+    const errorMessage = document.querySelector('.main__error');
+    if (errorMessage) {
+      errorMessage.style.display = 'none';
+    }
+
+    // Изменение названий полей в зависимости от активной кнопки
+    if (clickedButton.getAttribute('data-example') === "0xf0b1a4a35f7640d3cebd29b2813b3dff5b686e498d7060846ad4564dae6cd675") {
+      // Кнопка Tx Hash → RSZ
+      spanElements[0].textContent = 'R:'; // Address -> R
+      spanElements[1].textContent = 'S:'; // Compressed -> S
+      spanElements[2].textContent = 'Z:'; // Uncompressed -> Z
+    } else {
+      // Восстанавливаем первоначальные названия
+      spanElements[0].textContent = 'Address:';
+      spanElements[1].textContent = 'Compressed:';
+      spanElements[2].textContent = 'Uncompressed:';
     }
   }
 
@@ -116,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Обработчик для кнопок переключения
   buttons.forEach(button => {
     button.addEventListener('click', () => {
-      setActiveButton(button);
+      setActiveButton(button); // Вызов функции для изменения состояния кнопки и текста полей
 
       // Скрываем блок ошибки при переключении кнопок
       const errorMessage = document.querySelector('.main__error');
@@ -126,7 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Также очищаем ошибки на поле и на кнопке
       searchBox.classList.remove('error');
-      alertIcon.style.display = 'none'; // Скрываем иконку ошибки
+
+      // Если нужно, можно сбросить состояние, например, сбросить введенное значение в поле
+      inputField.value = ''; // Очищаем значение input (если необходимо)
     });
   });
 
@@ -150,8 +182,24 @@ document.addEventListener('DOMContentLoaded', () => {
   exampleText.addEventListener('click', () => {
     const activeButton = document.querySelector('.header__btn.active');
     if (activeButton) {
+      // Убираем ошибку перед вставкой текста
+      searchBox.classList.remove('error');
+      const errorMessage = document.querySelector('.main__error');
+      if (errorMessage) {
+        errorMessage.style.display = 'none';
+      }
+
+      // Вставляем новый адрес
       inputField.value = activeButton.getAttribute('data-example');
       inputField.focus();
+
+      // Теперь проверим, если поле пустое, то снова добавим ошибку
+      if (inputField.value.trim() === '') {
+        searchBox.classList.add('error');
+        if (errorMessage) {
+          errorMessage.style.display = 'block';
+        }
+      }
     }
   });
 
@@ -197,12 +245,9 @@ document.addEventListener('DOMContentLoaded', () => {
     isLoading = true;
     showLoader();
     searchBox.classList.remove('error');
-    alertIcon.style.display = 'none';
     const errorMessage = document.querySelector('.main__error');
     if (errorMessage) errorMessage.style.display = 'none'; // Скрываем ошибку перед проверкой
 
-    // Тестовый код для заполнения полей
-    // Заменить на реальный запрос API
     setTimeout(() => {
       const isValid = Math.random() > 0.5;
       hideLoader();
@@ -218,38 +263,61 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         fillFieldsWithValidResponse(apiResponse);
         searchBox.classList.remove('error');
-        clearButton.style.display = 'block';
-        clearButton.innerHTML = `<svg class="main__svg-x" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>`;
       } else {
         console.log("Ошибка: адрес не валиден");
         searchBox.classList.add('error');
-        alertIcon.style.display = 'block';
         if (errorMessage) {
-          errorMessage.textContent = "Ответ от APY с ошибкой";
+          errorMessage.textContent = "Failed to process request";
           errorMessage.style.display = 'block';
         }
-        alertTimeout = setTimeout(() => {
-          alertIcon.style.display = 'none';
-          clearButton.style.display = 'block';
-          clearButton.innerHTML = `<svg class="main__svg-x" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>`;
-        }, 3000);
       }
+
+      // Всегда показываем крестик после завершения лоадера
+      clearButton.style.display = 'block';
+      clearButton.innerHTML = `<svg class="main__svg-x" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>`;
       isLoading = false;
     }, 1000);
   }
+  const addressInput = document.querySelector('.main__inp'); // Поле ввода адреса (для его отслеживания)
+
+  // Обработчик для поля ввода адреса
+  addressInput.addEventListener('input', () => {
+    // Если пользователь начал вводить, сбрасываем ошибку
+    if (addressInput.value.trim() !== '') {
+      searchBox.classList.remove('error'); // Убираем ошибку, если есть
+      const errorMessage = document.querySelector('.main__error');
+      if (errorMessage) {
+        errorMessage.style.display = 'none'; // Скрываем сообщение об ошибке
+      }
+    } else {
+      // Если поле пустое, показываем ошибку
+      searchBox.classList.add('error');
+      const errorMessage = document.querySelector('.main__error');
+      if (errorMessage) {
+        errorMessage.textContent = "The address cannot be empty.";
+        errorMessage.style.display = 'block'; // Показываем сообщение об ошибке
+      }
+    }
+  });
 
   // Обработчик на кнопку отправки
   submitButton.addEventListener('click', () => {
-    if (inputField.value.trim() === '') {
+    const isFieldEmpty = inputField.value.trim() === '';
+
+    // Если поле пустое и ошибка ещё не добавлена
+    if (isFieldEmpty && !searchBox.classList.contains('error')) {
       searchBox.classList.add('error');
-    } else {
+    } else if (!isFieldEmpty) {
+      // Если поле не пустое, удаляем ошибку
+      searchBox.classList.remove('error');
       clearFields();
       checkAddress();
     }
+
+    // Переносим фокус на поле ввода
+    inputField.focus();
   });
 
   // Обработчик для нажатия Enter
@@ -264,28 +332,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
-
-  // Клик по иконке ошибки — скрываем ошибку
-  alertIcon.addEventListener('mouseover', () => {
-    alertIcon.style.display = 'none';
-    clearButton.style.display = 'block';
-    clearButton.innerHTML = `<svg class="main__svg-x" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-    </svg>`;
-  });
 });
 
 // Функция для заполнения полей при ответе
 function fillFieldsWithValidResponse(response) {
   const inputFields = document.querySelectorAll('.main__inp-content');
-  if (inputFields.length >= 3) {
-    inputFields[0].value = response.address;
-    inputFields[1].value = response.public_key.compressed;
-    inputFields[2].value = response.public_key.uncompressed;
-    inputFields.forEach(inputField => inputField.setAttribute('readonly', true));
-  } else {
-    console.error("Недостаточно полей ввода на странице!");
-  }
+
+  // Заполнение значений в поля
+  inputFields[0].value = response.address;
+  inputFields[1].value = response.public_key.compressed;
+  inputFields[2].value = response.public_key.uncompressed;
 }
 /******/ })()
 ;
