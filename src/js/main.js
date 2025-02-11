@@ -304,25 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Обработчик на кнопку отправки
-  // submitButton.addEventListener('click', () => {
-  //   const isFieldEmpty = inputField.value.trim() === '';
-
-  //   // Если поле пустое и ошибка ещё не добавлена
-  //   if (isFieldEmpty && !searchBox.classList.contains('error')) {
-  //     searchBox.classList.add('error');
-  //   } else if (!isFieldEmpty) {
-  //     // Если поле не пустое, удаляем ошибку
-  //     searchBox.classList.remove('error');
-  //     clearFields();
-  //     checkAddress();
-  //   }
-
-  //   inputField.blur();// Сворачиваем клавиатуру
-  //   // Добавляем задержку перед установкой фокуса
-  //   setTimeout(() => {
-  //     inputField.focus();
-  //   }, 0); // 0 миллисекунд - это дает браузеру время обновить состояние перед фокусом
-  // });
   submitButton.addEventListener('click', () => {
     const isFieldEmpty = inputField.value.trim() === '';
 
@@ -336,24 +317,24 @@ document.addEventListener('DOMContentLoaded', () => {
       checkAddress();
     }
 
-    // Переносим фокус на поле ввода
-    inputField.focus();
+    inputField.blur(); // Закрытие клавиатуры
   });
 
   // Обработчик для нажатия Enter
   inputField.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault();
-      inputField.blur(); // Закрытие клавиатуры на мобильных устройствах
+      event.preventDefault(); // Отменяем стандартное поведение
 
       if (inputField.value.trim() === '') {
         searchBox.classList.add('error');
       } else {
+        searchBox.classList.remove('error');
         clearFields();
         checkAddress();
       }
+
+      inputField.blur(); // Закрытие клавиатуры
     }
-    inputField.focus();
   });
 });
 
