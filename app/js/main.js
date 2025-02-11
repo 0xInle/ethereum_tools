@@ -57,11 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const inputElement = button.previousElementSibling;
       const textToCopy = inputElement.value;
       if (textToCopy.trim() !== '') {
-        navigator.clipboard.writeText(textToCopy).then(() => {
-          console.log("Текст скопирован в буфер обмена!");
-        }).catch(err => {
-          console.error('Ошибка при копировании текста: ', err);
-        });
+        navigator.clipboard.writeText(textToCopy).then(() => {}).catch(err => {});
       }
     });
   });
@@ -70,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Проверка на наличие всех необходимых элементов
   if (!inputField || !clearButton || !buttons.length || !exampleText || !searchBox) {
-    console.error('Ошибка: Один из элементов не найден.');
     return;
   }
 
@@ -121,17 +116,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Изменение названий полей в зависимости от активной кнопки
-    if (clickedButton.getAttribute('data-example') === "0xf0b1a4a35f7640d3cebd29b2813b3dff5b686e498d7060846ad4564dae6cd675") {
-      // Кнопка Tx Hash → RSZ
-      spanElements[0].textContent = 'R:'; // Address -> R
-      spanElements[1].textContent = 'S:'; // Compressed -> S
-      spanElements[2].textContent = 'Z:'; // Uncompressed -> Z
-    } else {
-      // Восстанавливаем первоначальные названия
+    // Установим начальные значения
+    function setInitialValues() {
       spanElements[0].textContent = 'Address:';
       spanElements[1].textContent = 'Compressed:';
       spanElements[2].textContent = 'Uncompressed:';
     }
+
+    // Вызываем функцию, чтобы установить начальные значения
+    setInitialValues();
+
+    // Обработчик клика по каждой кнопке
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Если нажата кнопка с id == "4"
+        if (button.id === "4") {
+          // Меняем текст в span-элементах на R, S, Z
+          spanElements[0].textContent = 'R'; // Address -> R
+          spanElements[1].textContent = 'S'; // Compressed -> S
+          spanElements[2].textContent = 'Z'; // Uncompressed -> Z
+        } else {
+          // Если нажата другая кнопка, восстанавливаем исходные значения
+          spanElements[0].textContent = 'Address:';
+          spanElements[1].textContent = 'Compressed:';
+          spanElements[2].textContent = 'Uncompressed:';
+        }
+      });
+    });
   }
 
   // Устанавливаем фокус на первую кнопку
@@ -195,17 +206,45 @@ document.addEventListener('DOMContentLoaded', () => {
         errorMessage.style.display = 'none';
       }
 
-      // Вставляем новый адрес
-      inputField.value = activeButton.getAttribute('data-example');
-      inputField.focus();
+      // Получаем данные от API
+      // fetch('/api/getExampleData')  // Заменить на реальный URL API
+      //   .then(response => response.json())  // Предполагаем, что API возвращает JSON
+      //   .then(data => {
+      //     let exampleText = '';
 
-      // Теперь проверим, если поле пустое, то снова добавим ошибку
-      if (inputField.value.trim() === '') {
-        searchBox.classList.add('error');
-        if (errorMessage) {
-          errorMessage.style.display = 'block';
-        }
-      }
+      //     // Вставляем новый адрес в зависимости от id активной кнопки
+      //     switch (activeButton.id) {
+      //       case '1':
+      //         exampleText = data.address;  // Пример для Address
+      //         break;
+      //       case '2':
+      //         exampleText = data.privateKey;  // Пример для Private Key
+      //         break;
+      //       case '3':
+      //         exampleText = data.publicKey;  // Пример для Public Key
+      //         break;
+      //       case '4':
+      //         exampleText = data.transactionHash;  // Пример для Transaction Hash
+      //         break;
+      //       default:
+      //         exampleText = '';  // По умолчанию, если id не совпадает
+      //     }
+
+      //     // Вставляем новый адрес
+      //     inputField.value = exampleText;
+      //     inputField.focus();
+
+      //     // Проверяем, если поле пустое, то добавляем ошибку
+      //     if (inputField.value.trim() === '') {
+      //       searchBox.classList.add('error');
+      //       if (errorMessage) {
+      //         errorMessage.style.display = 'block';
+      //       }
+      //     }
+      //   })
+      //   .catch(error => {
+      //     console.error('Ошибка при запросе данных API:', error);
+      //   });
     }
   });
 
@@ -258,7 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const isValid = Math.random() > 0.5;
       hideLoader();
       if (isValid) {
-        console.log("Адрес валиден");
         if (errorMessage) errorMessage.style.display = 'none';
         const apiResponse = {
           "address": "0x1406854d149e081ac09cb4ca560da463f3123059",
@@ -270,7 +308,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fillFieldsWithValidResponse(apiResponse);
         searchBox.classList.remove('error');
       } else {
-        console.log("Ошибка: адрес не валиден");
         searchBox.classList.add('error');
         if (errorMessage) {
           errorMessage.textContent = "Failed to process request";
@@ -328,6 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
   inputField.addEventListener('keydown', event => {
     if (event.key === 'Enter') {
       event.preventDefault();
+      inputField.blur(); // Закрытие клавиатуры на мобильных устройствах
+
       if (inputField.value.trim() === '') {
         searchBox.classList.add('error');
       } else {
@@ -340,12 +379,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Закрытие клавиатуры на мобильном устройстве
   submitButton.addEventListener('click', () => {
     inputField.blur();
-  });
-  inputField.addEventListener('keydown', event => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      inputField.blur();
-    }
   });
 });
 

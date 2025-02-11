@@ -77,7 +77,7 @@
       background-color: var(--light-color);
     }
 
-    @media (width <=390px) {
+    @media (width <=685px) {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -86,17 +86,3 @@
     }
   }
 }
-
-// .header__btn.active {
-//   border-color: var(--blue-color);
-//   color: var(--blue-color);
-//   background-color: var(--light-color);
-// }
-
-// @media (width <=1023px) {
-//   padding: 100px 30px;
-// }
-
-// @media (width <=479px) {
-//   padding: 40px 30px;
-// }

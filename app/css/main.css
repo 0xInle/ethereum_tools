@@ -196,7 +196,7 @@ html {
   color: var(--blue-color);
   background-color: var(--light-color);
 }
-@media (width <= 390px) {
+@media (width <= 685px) {
   .header__btn {
     display: -webkit-box;
     display: -ms-flexbox;
