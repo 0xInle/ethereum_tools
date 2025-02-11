@@ -317,6 +317,25 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Обработчик на кнопку отправки
+  // submitButton.addEventListener('click', () => {
+  //   const isFieldEmpty = inputField.value.trim() === '';
+
+  //   // Если поле пустое и ошибка ещё не добавлена
+  //   if (isFieldEmpty && !searchBox.classList.contains('error')) {
+  //     searchBox.classList.add('error');
+  //   } else if (!isFieldEmpty) {
+  //     // Если поле не пустое, удаляем ошибку
+  //     searchBox.classList.remove('error');
+  //     clearFields();
+  //     checkAddress();
+  //   }
+
+  //   inputField.blur();// Сворачиваем клавиатуру
+  //   // Добавляем задержку перед установкой фокуса
+  //   setTimeout(() => {
+  //     inputField.focus();
+  //   }, 0); // 0 миллисекунд - это дает браузеру время обновить состояние перед фокусом
+  // });
   submitButton.addEventListener('click', () => {
     const isFieldEmpty = inputField.value.trim() === '';
 
@@ -329,11 +348,9 @@ document.addEventListener('DOMContentLoaded', () => {
       clearFields();
       checkAddress();
     }
-    inputField.blur(); // Сворачиваем клавиатуру
-    // Добавляем задержку перед установкой фокуса
-    setTimeout(() => {
-      inputField.focus();
-    }, 0); // 0 миллисекунд - это дает браузеру время обновить состояние перед фокусом
+
+    // Переносим фокус на поле ввода
+    inputField.focus();
   });
 
   // Обработчик для нажатия Enter
