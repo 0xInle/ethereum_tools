@@ -316,6 +316,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Функция для проверки, является ли устройство мобильным
+  function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  }
+
   // Обработчик на кнопку отправки
   submitButton.addEventListener('click', () => {
     const isFieldEmpty = inputField.value.trim() === '';
@@ -329,14 +334,19 @@ document.addEventListener('DOMContentLoaded', () => {
       clearFields();
       checkAddress();
     }
-    inputField.blur(); // Закрытие клавиатуры
+
+    // Закрываем клавиатуру только на мобильных устройствах
+    if (isMobileDevice()) {
+      inputField.blur();
+    } else {
+      inputField.focus();
+    }
   });
 
   // Обработчик для нажатия Enter
   inputField.addEventListener('keydown', event => {
     if (event.key === 'Enter') {
-      event.preventDefault(); // Отменяем стандартное поведение
-
+      event.preventDefault();
       if (inputField.value.trim() === '') {
         searchBox.classList.add('error');
       } else {
@@ -344,7 +354,13 @@ document.addEventListener('DOMContentLoaded', () => {
         clearFields();
         checkAddress();
       }
-      inputField.blur(); // Закрытие клавиатуры
+
+      // Закрываем клавиатуру только на мобильных устройствах
+      if (isMobileDevice()) {
+        inputField.blur();
+      } else {
+        inputField.focus();
+      }
     }
   });
 });
