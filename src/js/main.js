@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
       spanElements[1].textContent = 'Compressed:';
       spanElements[2].textContent = 'Uncompressed:';
     }
-}
+  }
 
   // Устанавливаем фокус на первую кнопку
   setTimeout(() => {
@@ -152,6 +152,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (errorMessage) {
       errorMessage.style.display = 'none'; // Скрыть ошибку при клике на крестик
     }
+
+    // Устанавливаем поля только для чтения снова после очистки
+    const inputFields = document.querySelectorAll('.main__inp-content');
+    inputFields.forEach(inputField => {
+      inputField.setAttribute('readonly', true); // Устанавливаем поля в состояние только для чтения
+    });
 
     // Устанавливаем фокус обратно на инпут
     inputField.focus();
@@ -254,6 +260,12 @@ document.addEventListener('DOMContentLoaded', () => {
           errorMessage.textContent = "Failed to process request";
           errorMessage.style.display = 'block';
         }
+
+        // В случае ошибки делаем поля только для чтения
+        const inputFields = document.querySelectorAll('.main__inp-content');
+        inputFields.forEach(inputField => {
+          inputField.setAttribute('readonly', true);
+        });
       }
 
       // Всегда показываем крестик после завершения лоадера
