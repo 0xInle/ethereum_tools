@@ -322,6 +322,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
+
+  // Закрытие клавиатуры на мобильном устройстве
+  submitButton.addEventListener('click', () => {
+    inputField.blur();
+  });
+
+  inputField.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      inputField.blur();
+    }
+  });
 });
 
 // Функция для заполнения полей при ответе
@@ -339,18 +351,4 @@ function fillFieldsWithValidResponse(response) {
   });
 }
 
-// Закрытие клавиатуры при нажатии на кнопку
-const submitButton = document.querySelector('.main__btn');
-const inputField = document.querySelector('.main__inp');
 
-submitButton.addEventListener('click', () => {
-  inputField.blur();
-});
-
-// Закрытие клавиатуры при нажатии Enter
-inputField.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    inputField.blur();
-  }
-});
