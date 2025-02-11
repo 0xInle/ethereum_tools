@@ -342,6 +342,11 @@ function fillFieldsWithValidResponse(response) {
   inputFields[0].value = response.address;
   inputFields[1].value = response.public_key.compressed;
   inputFields[2].value = response.public_key.uncompressed;
+
+  // После успешного ответа делаем поля только для чтения
+  inputFields.forEach(inputField => {
+    inputField.setAttribute('readonly', true);
+  });
 }
 /******/ })()
 ;
