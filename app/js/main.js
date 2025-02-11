@@ -318,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Функция для проверки, является ли устройство мобильным
   function isMobileDevice() {
-    return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    return window.matchMedia("(pointer:coarse)").matches;
   }
 
   // Обработчик на кнопку отправки
