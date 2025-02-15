@@ -379,6 +379,18 @@ function fillFieldsWithValidResponse(response) {
     inputField.setAttribute('readonly', true);
   });
 }
+
+// Переключение светлой/темной темы
+const toggleButton = document.querySelector(".header__btn-theme");
+const isDarkMode = localStorage.getItem("theme") === "dark";
+const copyCheckPaths = document.querySelectorAll(".copy-check path");
+document.body.classList.toggle("dark-theme", isDarkMode);
+copyCheckPaths.forEach(path => path.setAttribute("stroke", isDarkMode ? "#fff" : "#007bff"));
+toggleButton.addEventListener("click", () => {
+  const isNowDark = document.body.classList.toggle("dark-theme");
+  copyCheckPaths.forEach(path => path.setAttribute("stroke", isNowDark ? "#fff" : "#007bff"));
+  localStorage.setItem("theme", isNowDark ? "dark" : "light");
+});
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map

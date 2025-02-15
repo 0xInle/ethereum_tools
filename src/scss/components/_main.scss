@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid var(--gray-color);
+    border-bottom: 1px solid var(--border-color);
     width: 100%;
     max-width: 680px;
   }
@@ -17,7 +17,7 @@
     position: relative;
     align-items: center;
     margin-bottom: 3px;
-    border: 2px solid var(--blue-color);
+    border: 2px solid var(--primary-color);
     border-radius: 4px;
     padding: 20px;
     width: 100%;
@@ -32,6 +32,11 @@
     @media (width <=390px) {
       padding: 10px;
     }
+
+    .dark-theme & {
+      border-color: rgba(64, 64, 64, 0.5);
+      background-color: rgba(64, 64, 64, 0.5);
+    }
   }
 
   &__inp {
@@ -44,6 +49,8 @@
     font-family: monospace;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: var(--text-color);
+    background-color: transparent;
 
     &.error {
       color: var(--error-color);
@@ -62,16 +69,32 @@
 
     @media (any-hover: hover) {
       &:hover svg {
-        stroke: var(--blue-color);
+        stroke: var(--primary-color);
+
+        .dark-theme & {
+          stroke: var(--primary-color); // Белый цвет при нажатии в тёмной теме
+        }
       }
     }
 
     &:focus svg {
-      stroke: var(--blue-color);
+      stroke: var(--primary-color);
+
+      .dark-theme & {
+        stroke: var(--primary-color); // Белый цвет при нажатии в тёмной теме
+      }
     }
 
     &:active svg {
-      stroke: #000;
+      stroke: var(--bg-color);
+
+      .dark-theme & {
+        stroke: var(--border-color); // Белый цвет при нажатии в тёмной теме
+      }
+    }
+
+    .dark-theme & svg {
+      stroke: var(--border-color);
     }
   }
 
@@ -94,22 +117,34 @@
     outline: none;
     border-radius: 4px;
     padding: 15px 70px;
-    color: var(--white-color);
-    background-color: var(--blue-color);
+    color: var(--bg-color);
+    background-color: var(--primary-color);
     transition: all .2s ease-in-out;
 
     @media (any-hover: hover) {
       &:hover {
-        background-color: #007bffd0;
+        background-color: #516c9b;
+
+        .dark-theme & {
+          background-color: rgba(217, 217, 217, 0.5);
+        }
       }
     }
 
     &:focus {
-      background-color: #007bffd0;
+      background-color: #516c9b;
+
+      .dark-theme & {
+        background-color: rgba(217, 217, 217, 0.5);
+      }
     }
 
     &:active {
-      background-color: var(--blue-color);
+      background-color: var(--primary-color);
+
+      .dark-theme & {
+        background-color: var(--text-color);
+      }
     }
   }
 
@@ -125,7 +160,12 @@
     top: -6px;
     font-family: monospace;
     font-size: 12px;
-    background-color: var(--white-color);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+
+    .dark-theme & {
+      background-color: transparent;
+    }
   }
 
   &__inp-content {
@@ -143,6 +183,10 @@
     @media (width <=390px) {
       margin-right: 10px;
     }
+
+    .dark-theme & {
+      color: var(--text-color);
+    }
   }
 
   &__list {
@@ -155,13 +199,18 @@
   &__item {
     position: relative;
     align-items: center;
-    border: 1px solid var(--gray-color);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     padding: 10px;
     padding-top: 12px;
 
     &:not(:last-child) {
       margin-bottom: 16px;
+    }
+
+    .dark-theme & {
+      border-color: rgba(64, 64, 64, 0.5);
+      background-color: rgba(64, 64, 64, 0.5);
     }
   }
 
@@ -171,18 +220,32 @@
     height: 20px;
 
     &:hover .main__icon-copy {
-      color: var(--blue-color);
-      transition: all .1s ease-in-out;
+      color: var(--primary-color);
     }
 
     &:active .main__icon-copy {
-      color: var(--white-color);
-      transition: all .1s ease-in-out;
+      color: var(--bg-color);
     }
 
     &:focus-visible .main__icon-copy {
-      color: var(--blue-color);
-      transition: all .1s ease-in-out;
+      color: var(--primary-color);
+    }
+  }
+
+  .main__icon-copy {
+    color: var(--example-color);
+    transition: all .3s ease;
+
+    &:hover {
+      color: var(--text-color);
+    }
+
+    &:focus {
+      color: var(--text-color);
+    }
+
+    &:active {
+      color: var(--example-color);
     }
   }
 
@@ -203,21 +266,33 @@
     outline: none;
     font-size: 12px;
     text-decoration: underline;
-    color: rgb(92, 91, 91);
+    color: var(--example-color);
     transition: all .3s ease;
     cursor: pointer;
 
     &:hover {
-      color: var(--blue-color);
+      color: var(--primary-color);
+
+      .dark-theme & {
+        color: var(--text-color);
+      }
     }
 
     &:focus {
       outline: none;
-      color: var(--blue-color);
+      color: var(--primary-color);
+
+      .dark-theme & {
+        color: var(--text-color);
+      }
     }
 
     &:active {
       color: rgb(92, 91, 91);
+
+      .dark-theme & {
+        color: var(--example-color);
+      }
     }
   }
 
@@ -252,10 +327,14 @@
 
 /* Когда поле в фокусе и ошибка */
 .main__search-box.error .main__inp:focus {
-  border-color: var(--error-color); /* Устанавливаем красный бордер даже при фокусе */
+  border-color: var(--error-color);
 }
 
 /* Когда поле просто в фокусе, без ошибки */
 .main__search-box .main__inp:focus {
-  border-color: var(--blue-color); /* Синий бордер при фокусе */
+  border-color: var(--primary-color);
+}
+
+.dark-theme .loader {
+  color: var(--example-color);
 }

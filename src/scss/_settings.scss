@@ -47,7 +47,7 @@ html {
 .link-reset {
   font-size: 18px;
   text-decoration: none;
-  color: var(--black-color);
+  color: var(--text-color);
 }
 
 .flex {
@@ -79,4 +79,11 @@ html {
   @media (width <= 788px) {
     padding: 0 16px;
   }
+}
+
+.dark-theme {
+  --bg-color: #1f1f1f;
+  --text-color: #fff;
+  --example-color: #ccc;
+  --primary-color: #fff;
 }

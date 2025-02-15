@@ -6,9 +6,11 @@
   --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
 
   // colors
-  --white-color: #fff;
-  --blue-color: #007bff;
-  --gray-color: #ccc;
-  --light-color: #faf8f8;
-  --error-color: rgb(242, 6, 6);
+  --bg-color: #fff;
+  --text-color: #000;
+  --primary-color: #2e476f;
+  --border-color: #ccc;
+  --primary-light-color: #faf8f8;
+  --error-color: #f20606;
+  --example-color: #5c5b5b;
 }
